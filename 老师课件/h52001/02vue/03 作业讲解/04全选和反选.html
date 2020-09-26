@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for的使用</title>
+    <style>
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            -webkit-appearance: none;
+            border: 1px solid #c9c9c9;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="checkbox"]:checked {
+            background: url("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=5bc58607708b4710da22f59ea2a7a898/622762d0f703918f418843ec533d269759eec4bf.jpg") no-repeat center;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>全选：<input type="checkbox" v-model="checkall"></h1>
+        <div>
+            <input v-for="(item, index) in goodslist" v-model="item.is_checked" type="checkbox" name="" id="">
+
+        </div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载入口，里面写是选择器(可以是id、class、标签)；不能挂载在body和html上
+        data: {//放数据
+            goodslist: [
+                {
+                    id: 1,
+                    is_checked: false
+                }, {
+                    id: 2,
+                    is_checked: false
+                }, {
+                    id: 3,
+                    is_checked: true
+                }, {
+                    id: 4,
+                    is_checked: false
+                }
+            ]
+        },
+        methods: {//放方法
+
+        },
+        computed: {//计算属性
+            checkall: {
+                get() {
+                    return this.goodslist.every(item => item.is_checked);
+                },
+                set(val) {
+                    // console.log(val);
+                    this.goodslist.forEach(ele => {
+                        ele.is_checked = val;
+                    });
+                }
+            }
+        },
+        watch: {//监听器
+
+        }
+    });
+</script>
+
+</html>

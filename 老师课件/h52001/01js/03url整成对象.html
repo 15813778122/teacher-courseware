@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03url整成对象</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+        有一个url，提取参数部分，转成对象；
+
+        url==网址：http://www.baidu.com:888/css/css.html?name=malin&psw=223#index
+            * 协议：http:// https:// ssh ws
+            * 域名：子域名 www luntab wenku； 主域名：baidu.com
+            * 端口号：888，默认 80
+            * 路径：css/css.html
+            * 参数：name=malin&psw=223
+            * 哈希值：#index
+
+        location对象：
+            * href：完整路径；http://www.baidu.com:888/css/css.html?name=malin&psw=223#index
+            * search：?name=malin&psw=223#index
+            * hash：#index
+
+        要提取参数转成对象：
+            {
+                name ： 'malin',
+                psw : 'index'
+            }
+
+    */
+    // let url = location.href;
+    let url = 'http://www.baidu.com:888/css/css.html?name=malin&psw=223#index';
+    let arr = url.split('?');//把字符串转成数组
+    let arr2 = arr[1].split('#')[0];//"name=malin&psw=223"
+    console.log(arr2);
+
+    let arr3 = arr2.split('&');//['name=malin','psw=223']
+    let obj = {};
+    arr3.forEach(item => {
+        console.log(item);
+        let res = item.split('=');//['name','malin']
+        obj[res[0]] = res[1];
+    });
+
+    console.log(obj);//后期的操作：发送ajax，把这个对象发给后端  列表页：id=1234;得到一个商品详情，渲染到本页面
+
+    //需求二：有一个对象，拼接成字符串："name=malin&psw=223"
+    let data = {
+        name: 'malin',
+        psw: '12345'
+    }
+
+    //for in ;不能用for while ，因为对象是没有长度的
+    let str = '';
+    for (let key in data) {
+        console.log(key, data[key]);
+        str += key + '=' + data[key] + '&';
+    }
+
+    str = str.slice(0, -1);
+    console.log(str);
+
+    //重要性：页面跳转的时候，携带参数-ajax-获取数据-渲染页面
+</script>
+
+</html>

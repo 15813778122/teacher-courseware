@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性的绑定和事件的绑定</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .green {
+            background: #58bc58;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="green red">这个流行色</div>
+        <!-- class的设置三种写法 -->
+        <h1>1、字符串的写法</h1>
+        <p :class="active">就是这么帅</p>
+
+        <h1>2、对象的写法{类名:布尔值,类名:布尔值} 如果布尔值为true就启用该样式，否则不启用</h1>
+        <p :class="{red:isred,green:isgreen}">就是这么帅</p>
+
+        <h1>3、数组的写法</h1>
+        <p :class="[active]">就是这么帅</p>
+
+        <!-- style的设置 -->
+        <h1>4、利用style设置行内样式，对象的方式设置</h1>
+        <p :style="{color:fcolor,fontSize:fsize + 'px'}">就是这么帅</p>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载的入口不能是body和html标签
+        data: {
+            active: 'green',
+            isred: true,
+            isgreen: false,
+            fcolor: 'yellow',
+            // fsize: '50px'
+            fsize: 50
+        }
+    });
+</script>
+
+</html>

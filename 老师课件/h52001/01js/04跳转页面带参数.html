@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04跳转页面带参数</title>
+</head>
+
+<body>
+    <!-- <a href="03url整成对象.html?777" target="_blank">跳转</a> -->
+    <a href="#index" target="_blank">跳转</a>
+    <p id="demo1">跳转</p>
+</body>
+<script>
+    /*
+        页面跳转：
+            * 要新窗口打开：
+                * a标签设置target属性
+                * window.open()
+            * 不要新窗口打开：
+                * a不设置target
+                * location.href
+    */
+    //file:///C:/Users/Administrator/Desktop/malin%E7%9A%84%E4%BD%9C%E4%B8%9A/gzh52001/03url%E6%95%B4%E6%88%90%E5%AF%B9%E8%B1%A1.html?666
+    let demo = document.querySelector('#demo1');
+    demo.onclick = function () {
+        // window.open('03url整成对象.html?' + 666)
+        location.href = '03url整成对象.html?' + 666;
+    }
+</script>
+
+</html>

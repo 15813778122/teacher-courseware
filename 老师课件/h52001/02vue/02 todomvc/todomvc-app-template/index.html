@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Template • TodoMVC</title>
+	<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
+	<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+	<!-- CSS overrides - remove if you don't need it -->
+	<link rel="stylesheet" href="css/app.css">
+</head>
+
+<body>
+	<section class="todoapp" id="app">
+		<header class="header">
+			<h1>todos</h1>
+			<!-- 回车的时候，就可以添加任务 -->
+			<input class="new-todo" v-focus placeholder="What needs to be done?" @keyup.13="addItem" v-model.trim="msg">
+		</header>
+		<!-- This section should be hidden by default and shown when there are todos -->
+		<section class="main">
+			<!-- 全选复选框 -->
+			<input id="toggle-all" class="toggle-all" type="checkbox" v-model="checkall">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul class="todo-list">
+				<!-- These are here just to show the structure of the list items -->
+				<!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+				<!-- 遍历数据到页面 -->
+				<li v-for="(item, index) in filterItem" :class="{completed:item.completed,editing:index==currentItem}">
+					<div class="view">
+						<input class="toggle" type="checkbox" v-model="item.completed">
+						<label @dblclick="editItem(index)">{{ item.con }}</label>
+						<button class="destroy" @click="removeItem(index)"></button>
+					</div>
+					<!-- 双击编辑表单，失去焦点或回车的时候，退出编辑 -->
+					<input class="edit" value="Create a TodoMVC template" v-focus2 @keyup.enter="$event.target.blur"
+						v-model="item.con" @blur="changeItem(index)">
+				</li>
+				<!-- <li>
+					<div class="view">
+						<input class="toggle" type="checkbox">
+						<label>Buy a unicorn</label>
+						<button class="destroy"></button>
+					</div>
+					<input class="edit" value="Rule the web">
+				</li> -->
+			</ul>
+		</section>
+		<!-- This footer should hidden by default and shown when there are todos -->
+		<footer class="footer" v-show="filterItem.length">
+			<!-- This should be `0 items left` by default -->
+			<span class="todo-count"><strong>{{ activeCount }}</strong> {{ activeCount == 1 ? 'item' : 'items' }}
+				left</span>
+			<!-- Remove this if you don't implement routing -->
+			<ul class="filters">
+				<li>
+					<a :class="{selected:status=='all'}" href="#/all">All</a>
+				</li>
+				<li>
+					<a :class="{selected:status=='active'}" href="#/active">Active</a>
+				</li>
+				<li>
+					<a :class="{selected:status=='completed'}" href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<!-- Hidden if no completed items are left ↓ -->
+			<!-- 删除全部已完成的任务 -->
+			<button class="clear-completed" @click="clearAll">Clear completed</button>
+		</footer>
+	</section>
+
+	<!-- Scripts here. Don't remove ↓ -->
+	<script src="node_modules/todomvc-common/base.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/app.js"></script>
+</body>
+
+</html>

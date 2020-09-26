@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性的绑定和事件的绑定</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <img src="https://cn.vuejs.org/images/logo.png" alt=""> -->
+        <!-- 1、绑定属性值 v-bind:src -->
+        <h1>
+            1、绑定属性值 v-bind:src
+        </h1>
+        <img v-bind:src="imgUrl" alt="">
+        <h1>2.v-bind的简写 :href</h1>
+        <a :href="link">跳转</a>
+
+        <h1>3、事件的绑定 v-on;事件处理函数可以加(),也可以省略</h1>
+        <p>单价：99</p>
+        <input type="text" v-model="num">
+        <p>总价：{{ total }}</p>
+        <!-- <input type="button" value="加1" v-on:click="add"> -->
+        <!-- <input type="button" value="加1" v-on:click="add()"> -->
+        <input type="button" value="加1" @click="add()">
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载的入口不能是body和html标签
+        data: {
+            imgUrl: 'https://cn.vuejs.org/images/logo.png',
+            link: 'https://www.baidu.com',
+            num: 1,
+            total: 0
+        },
+        methods: {//methods里面是写事件处理函数的
+            //一个个的方法
+            add: function () {
+                // console.log('点我了');
+                // console.log(this.num);
+                this.num++;
+                this.total = this.num * 99;
+            }
+        }
+    });
+</script>
+
+</html>

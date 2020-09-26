@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax请求</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item, index) in list" :key="item.id">{{ item.name }}</li>
+        </ul>
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            list: []
+        },
+        created() {
+            //发送ajax。请求数据，设置到data里面
+            let p1 = axios.get('./db/namelist.json');
+            console.log(p1);
+
+            p1.then(data => {//then()用来接收promise对象里面成功返回的数据
+                console.log(data.data);
+                this.list = data.data;//把ajax请求到的数据，设置到data里面，视图层就会改变
+            });
+
+            p1.catch(error => {
+                //失败的回调
+                console.log(error);
+            });
+
+            p1.finally(data => {
+                //不论成功还是失败，都执行这里
+                console.log('finally');
+            })
+        }
+    });
+</script>
+
+</html>

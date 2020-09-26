@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo">0</div>
+</body>
+<script>
+
+    console.time('ok');
+    //需求：请把#demo里面的数据循环加10000次
+    /*
+        影响页面性能的因素：
+            * DOM操纵过多：节点的增删改查、属性的添加修改、节点内容的操作
+            * ajax发送次数：节流
+            * 事件绑定次数过多
+            * js/css文件引入过多
+            * 图片过大
+    */
+    //DOM操作：3W次-3次 250ms-1ms
+    let demo = document.querySelector('#demo');
+    let num = demo.innerHTML;
+    for (let i = 0; i < 10000; i++) {
+        num++;
+    }
+    demo.innerHTML = num;
+    console.timeEnd('ok');
+</script>
+
+</html>

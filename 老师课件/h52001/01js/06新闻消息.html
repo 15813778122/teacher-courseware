@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>[案例]显示5条最新消息</title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .news-list {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            width: 600px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .news-list h4 {
+            margin: 0 0 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .news-list ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            line-height: 2;
+        }
+
+        .form {
+            margin: 100px auto 0;
+            width: 600px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .form input {
+            float: left;
+            width: 480px;
+            height: 50px;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .form #btn {
+            float: left;
+            width: 120px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>显示5条最新消息</h1>
+    <div class="news-list">
+        <h4>最新消息</h4>
+        <ul id="newsList">
+            <!-- <li>sss</li> -->
+        </ul>
+    </div>
+
+    <div class="form">
+        <input type="text" id="news"><input id="btn" type="button" value="点击添加">
+    </div>
+</body>
+<script src="../common.js"></script>
+<script>
+    /*
+        需求：留言板
+            * 把现有的数据渲染到页面中
+            * 点击按钮的时候获取最新的数据，插入到数组中，重新渲染到页面
+                * 新数据从头部添加
+                * 总条数不超过5条
+            * 回车提交数据
+        
+    */
+
+    (function() {
+
+        //找节点
+        var btn = getid('btn');
+        var news = getid('news');
+        var newsList = getid('newsList');//ul
+        var data = ['小明由于调戏女老师再次被滚粗教室', 'iPhone10发布,屏幕高度亮瞎了所有小伙伴', '为了弘扬乐于助人的精神，中国人大开会决定授予老王“中国好邻居”称号'];
+        
+
+        //1.把现有的数据渲染到页面中
+        function init() {//初始化方法
+            var html = '';//存放拼接的数据,注意，放在里面就是每次从新拼接最新的数据
+            // console.log(data);
+            // console.log(newsList.innerHTML);
+            for(var i = 0; i < data.length; i++) {
+                html += '<li>'+ (i + 1) +'.' + data[i] + '</li>';
+            }
+            console.log(html);
+            newsList.innerHTML = html;//数据渲染
+        }
+
+        init();
+
+        function creat() {
+            var tex = news.value;
+            if(tex) {
+                //非空
+                data.unshift(tex);//从前面插入数据
+                if(data.length > 5) {//临界值设置
+                    data.pop();//如果超过5条就删除最后一条
+                }
+                init();
+                news.value = '';//清空
+                news.focus();//聚焦
+
+            }else{
+                //空
+                alert('请输入内容再插入');
+            }
+        }
+        //2.点击按钮的时候获取最新的数据，插入到数组中，重新渲染到页面
+        btn.onclick = function() {
+            creat();
+        }
+
+        news.onkeyup = function(ev) {
+            console.log(ev.keyCode);//键值 13==回车键
+            if(ev.keyCode == 13) {
+                //获取表单的内容提交
+                creat();
+            }
+        }
+
+    })();
+</script>
+
+</html>

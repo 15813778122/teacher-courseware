@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>和尚挑水</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+        和尚挑水：山上有一口缸可以装50升水，现在有15升水。老和尚叫小和尚下山挑水，每次可以挑5升。问：小和尚要挑几次水才可以把水缸挑满？通过编程解决这个问题。
+    */
+
+    let water = 15;//本来15升
+    let num = 0;//计数器
+    while (water < 50) {//如果不确定循环次数的时候，建议用while循环
+        num++;
+        water += 5;
+    }
+
+    console.log('挑水：' + num);
+</script>
+
+</html>

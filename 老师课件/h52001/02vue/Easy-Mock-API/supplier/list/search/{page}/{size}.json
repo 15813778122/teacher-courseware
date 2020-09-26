@@ -1,0 +1,15 @@
+{
+  "code": 2000,
+  "flag": true,
+  "message": "查询成功",
+  "data": {
+    "total": "@integer(100, 200)", // 总记录数
+    "rows|10": [{ // 当前查询的数据，每次查询10条
+      "id|+1": 10,
+      "name": "@ctitle",
+      "linkman": "@cname",
+      "mobile|11": "@integer(0, 9)", // 11个数字0-9间的数字
+      "remark": "@csentence(5, 15)",
+    }]
+  }
+}

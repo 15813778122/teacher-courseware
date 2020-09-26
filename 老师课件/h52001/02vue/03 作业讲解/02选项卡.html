@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02选项卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            padding: 50px;
+        }
+
+        .tab li {
+            width: 80px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background: #cccccc;
+            float: left;
+            margin-right: 20px;
+        }
+
+        .tab .active {
+            background: #58bc58;
+        }
+
+        .content {
+            clear: both;
+            width: 500px;
+            height: 200px;
+            border: 1px solid #cccccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul class="tab">
+            <li v-for="(item, index) in list" :class="{active:index==currentIndex}" @click="changeTab(index)">{{ item }}
+            </li>
+            <!-- <li>体育</li>
+            <li>娱乐</li>
+            <li>游戏</li> -->
+        </ul>
+        <div class="content">
+            <h3>{{ con[currentIndex].title }}</h3>
+            <p>{{ con[currentIndex].content }}</p>
+        </div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载入口，里面写是选择器(可以是id、class、标签)；不能挂载在body和html上
+        data: {//放数据
+            list: ['新闻', '体育', '娱乐', '游戏'],
+            currentIndex: 0, //当下高亮li的索引
+            con: [
+                {
+                    title: '今天天气很好1',
+                    content: '希望不会下雨'
+                }, {
+                    title: '今天天气很好2',
+                    content: '希望不会下雨'
+                }, {
+                    title: '今天天气很好3',
+                    content: '希望不会下雨'
+                },
+                {
+                    title: '今天天气很好4',
+                    content: '希望不会下雨'
+                }
+            ]
+        },
+        methods: {//放方法
+            changeTab(index) {
+                this.currentIndex = index;//当前高亮的是第index个
+            }
+        },
+        computed: {//计算属性
+
+        },
+        watch: {//监听器
+
+        }
+    });
+</script>
+
+</html>

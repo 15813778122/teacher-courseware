@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+
+    //如果传参，就用传参的设置，否则用默认的设置
+    //踢足球：主角在，主角上，主角不在，替补上
+
+    let xiaoming = {
+        // name: '', //主角：配置参数
+        a: '1'
+    }
+
+    let xiaohua = {
+        name: '小华', //替补:默认参数
+        b: '6'
+    }
+    //合并对象
+    Object.assign(xiaohua, xiaoming);//把小明合并到小华身上
+
+    // console.log(xiaoming);
+    console.log(xiaohua.name);
+</script>
+
+</html>

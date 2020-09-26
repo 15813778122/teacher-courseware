@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for的使用</title>
+</head>
+
+<body>
+    <div id="app">
+        <form action="xxx" method="POST">
+            姓名(文本)：<input type="text" v-model="name">
+
+            <br><br>
+            性别(单选按钮)：
+            <input name="sex" type="radio" value="man" v-model="check" />男
+            <input name="sex" type="radio" value="woman" v-model="check" />女
+
+
+            <br><br>
+            技能(多选框)：
+            <input type="checkbox" name="skills" value="java" v-model="skill">Java开发
+            <input type="checkbox" name="skills" value="vue" v-model="skill">Vue.js开发
+            <input type="checkbox" name="skills" value="python" v-model="skill">Python开发
+
+            <br><br>
+            城市(下拉框)：
+            <select name="citys" v-model="city">
+                <option v-for="item in citys" :value="item.val">{{ item.adr }}</option>
+            </select>
+
+            <br><br>
+            说明(多行文本)：<textarea cols="30" rows="5" v-model="msg"></textarea>
+
+            <br><br>
+            <!-- <input type="button" value="提交"> -->
+            <!-- 默认行为：点击的时候，会把form里面表单的全部值，提交给后端程序处理，并刷新页面 -->
+            <button type="submit" @click.prevent="setdata">提交</button>
+        </form>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载入口，里面写是选择器(可以是id、class、标签)；不能挂载在body和html上
+        data: {//放数据
+            name: '',//姓名：如果不设置，视图那里就不显示数据
+            check: 'man',//单选框设置默认值，让这个初始值跟上面的某个value一致即可
+            skill: ['java', 'vue'], //复选框设置默认值，数组形式，可以设置多个默认值
+            citys: [
+                {
+                    adr: '广西',
+                    val: 'gx'
+                }, {
+                    adr: '广东',
+                    val: 'gd'
+                }, {
+                    adr: '江西',
+                    val: 'jx'
+                }, {
+                    adr: '湖南',
+                    val: 'hn'
+                }
+            ],
+            city: 'gd', //下拉框设置默认值：重点，value是在select标签上获取的，所有v-model是绑在select
+            msg: ''
+
+        },
+        methods: {//放方法
+            setdata() {
+                let datalist = {
+                    name: this.name,
+                    check: this.check,
+                    skill: this.skill,
+                    city: this.city,
+                    msg: this.msg
+                }
+                console.log(datalist);//发送ajax。把数据发给后端，这就是前后端分离的做法。也是现在开发的常用方法。
+            }
+        },
+        computed: {//计算属性
+
+        },
+        watch: {//监听器
+
+        }
+    });
+</script>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01注册组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 2、调用组件 -->
+        <app-head></app-head>
+        <app-footer></app-footer>
+        <app-nav></app-nav>
+
+    </div>
+
+    <div id="app2">
+        <!-- 2、调用组件 -->
+        <app-head></app-head>
+        <app-footer></app-footer>
+        <!-- <app-nav></app-nav> -->
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    /*
+        1、注册组件：
+            * 全局组件:只要是vue的实例都可以调用，公有
+                * 参数一：组件名：驼峰命名法或中划线连接(官方推荐用横杠的方式命名组件名)
+                * 参数二：实例(一个组件就是一个实例，不需要手动安装的实例)
+            * 局部的组件：只有自己能用，私有
+        2、调用组件
+            * 不论你是驼峰还是普通横杠的组件名，使用的时候，都是横杠
+
+        3.总结
+            * 一个组件就是一个vue的实例，只是不需要手动new
+            * vue的所有属性，在我们的组件里面依然适用：data/methods/watch/computed/directives/template
+            * data必须写成一个方法，并在里面返回对象
+                * 组件就是为了实现复用
+                * 组件之间数据应该是独立的
+                * 如果data不是方法，而是对象，那其实各个组件都是在引用同个对象的数据，就会互相影响
+    */
+
+    //1、注册全局组件
+    // Vue.component('appHead', {
+    Vue.component('app-head', {
+        template: '<h2>{{ msg }}</h2>',//设置模板
+        data: function () {
+            return {
+                msg: '注册全局组件-顶部'
+            }
+        }
+    });
+
+    Vue.component('app-footer', {
+        template: '<h2>{{ msg }}</h2>',
+        data: function () {
+            return {
+                msg: '注册全局组件-底部'
+            }
+        }
+    });
+
+    new Vue({//实例化的时候，就会自动生成根组件Root
+        el: '#app',
+        data: {//在根组件，data就是一个对象
+
+        },
+        components: {//注册局部组件
+            'app-nav': {
+                template: '<h3 @click="show">{{ name }}</h3>',
+                data() {
+                    return {
+                        name: '百度'
+                    }
+                },
+                methods: {
+                    show() {
+                        alert('点了我');
+                    }
+                }
+            }
+        }
+    });
+
+
+    new Vue({
+        el: '#app2'
+    })
+</script>
+
+</html>

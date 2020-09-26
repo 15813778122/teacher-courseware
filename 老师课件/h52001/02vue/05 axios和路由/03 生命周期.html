@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        {{ msg }}
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+
+    let vm = new Vue({
+        // el: '#app',
+        data: {
+            msg: '拼搏到无能为力'
+        },
+        //第一阶段：初始化阶段
+        beforeCreate() {
+            // Vue 实例创建前被调用，数据和模板均未获取到
+            console.log('beforeCreate()', this.$el, this.$data)
+        },
+
+        created() {
+            // Vue实例创建后，最早可以获取到 data数据的钩子，但是模板未获取到
+            console.log('created()', this.$el, this.$data)
+        },
+
+        beforeMount() {
+            // 数据挂载之前，获取到了模板，但是数据还未挂载到模板上
+            console.log('beforeMount()', this.$el, this.$data)
+        },
+
+        mounted() {
+            // 数据已经挂载到模板中了
+            console.log('mounted()', this.$el, this.$data)
+        },
+        //第二阶段：不一定有，只有你改动data里面的数据，才会触发这两个钩子
+        beforeUpdate() {
+            // 当data 数据更新之后，去更新模板中的数据前调用
+            console.log('beforeUpdate()', this.$el.innerHTML, this.$data)
+        },
+
+        updated() {
+            console.log('updated()', this.$el.innerHTML, this.$data)
+        },
+
+        beforeDestroy() {
+            //销毁 Vue 实例之前调用
+            // 收尾工作
+            console.log('beforeDestroy()')
+        },
+        //第三阶段：不一定有，实例销毁节点
+        destroyed() {
+            //销毁 Vue 实例之后调用
+            console.log('destroyed()')
+        }
+
+    }).$mount('#app');//除了el的写法外，我们还可以通过vm下面的一个$mount()挂载
+
+
+</script>
+
+</html>

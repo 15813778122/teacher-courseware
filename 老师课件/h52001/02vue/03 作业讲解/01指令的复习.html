@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for的使用</title>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    /*
+        指令的复习：
+            * 渲染数据
+                * v-html 可以渲染标签，相当于原生innerHTML
+                * v-text 可以渲染文本，相当于原生innerText
+                * v-once 只渲染一次(后面如果改变数据层，视图层不会改变)
+                * v-clock 和{{}} 一起用，解决闪烁问题
+                * {{ num < 0 ? 2 : '' }} 渲染数据，里面可以写表达式
+            * 节点的显示隐藏
+                * v-if 创建和删除节点：节点没有了
+                * v-else 创建和删除节点
+                * v-show 显示隐藏节点：节点还在
+            * 属性绑定
+                * v-bind:src="url" 完整写法，绑定属性，属性值就可以从data下方读取  
+                * 简写： :src="url"
+            * 事件绑定
+                * v-on:click="add" v-on:click="add(666,$event)" 完整写法
+                * 简写： @click="add"   @click="add(666,$event)"
+                * 事件修饰符
+                    * @click.stop="add" 阻止冒泡
+                    * @click.prevent="add" 阻止默认行为
+                    * @click.once="add" 事件只执行一次
+                * 键盘修饰符
+                    * @keyup.enter="add"  @keyup.13="add" 按下回车键
+                    * .tab .ctrl .alt 
+            * 双向数据绑定 v-model
+                * MVVM
+                    * M:model 数据层，就是我们data里面的数据
+                    * V：view 视图层,就是我们的页面结构body
+                    * VM:viewmodel 就是我们new出来的vm实例
+                        * 视图层数据改变，数据层也会跟着改变，因为VM内部DOM监听器
+                        * 数据层数据改变，视图层也会跟着改变，因为VM重新帮我们渲染
+                * 使用对象：表单
+                    * text 文本表单，直接绑定v-model
+                    * radio 单选框,设置value值，如果v-model的值和value，那么该项就是被选中状态
+                    * checkbox 复选框,默认值是数组形式。
+                        * 方法1：value设置好，设置好数组的值，如果v-model的值和value，那么该项就是被选中状态
+                        * 方法2：给v-model设置布尔值，true就是选中，否则不选中
+                    * select 下拉框，value的获取是在select标签上的
+                    * textarea 文本域
+                * 修饰符
+                    * v-model.lazy="" 能把默认的oninput效果转成onchange
+                    * v-model.trim="" 去除前后空格
+                    * v-model.number="" 把字符串转成数字
+            * 不要编译{{}} v-pre
+            * 遍历节点，渲染列表 v-for
+                * 遍历数组  v-for="(item, index) in arr"
+                * 遍历对象  v-for="(value, key, index) in obj"
+                * in可以换成of
+    */
+    let vm = new Vue({
+        el: '#app',//挂载入口，里面写是选择器(可以是id、class、标签)；不能挂载在body和html上
+        data: {//放数据
+            url: 'xxx'
+        },
+        methods: {//放方法
+
+        },
+        computed: {//计算属性
+
+        },
+        watch: {//监听器
+
+        }
+    });
+</script>
+
+</html>

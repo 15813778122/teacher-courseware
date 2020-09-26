@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02组件化页面</title>
+</head>
+
+<body>
+    <div id="app">
+        <app-header></app-header>
+        <app-main></app-main>
+        <app-footer></app-footer>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script src="components/appfooter.js"></script>
+<script src="components/apphead.js"></script>
+<script src="components/appmain.js"></script>
+<script>
+    /*
+        需求：把页面的头部、主体、底部切开，分开保存，做成一个个模块。这个过程就是组件化
+    */
+
+    new Vue({
+        el: '#app'
+    });
+</script>
+
+</html>

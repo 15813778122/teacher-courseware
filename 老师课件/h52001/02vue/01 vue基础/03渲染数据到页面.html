@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一个vue</title>
+    <style>
+        [v-clock] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 渲染数据到页面 -->
+    <div id="app">
+        <h1>1、{{}} 渲染数据</h1>
+        <p>{{ num }}</p>
+        <p>{{ num * 2 }}</p>
+        <p>{{ msg }}</p>
+
+        <h1>2、v-html 渲染数据</h1>
+        <p v-html="msg"></p>
+
+        <h1>3、v-text 渲染数据</h1>
+        <p v-text="msg"></p>
+
+        <h1>4、v-once 只渲染一次</h1>
+        <p>{{ math }}</p>
+        <p v-once>{{ math }}</p>
+        <input type="text" v-model="math">
+
+        <h1>5、v-clock 解决{{}}的闪烁问题</h1>
+        <p>{{ num }}</p>
+        <p v-clock>{{ num }}</p>
+    </div>
+
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//el:挂载入口，让这个div被我们的vue所管理
+        data: { //data:设置数据的地方，对象的形式，属性名写好了，到时候在页面里面直接调用就能渲染数据
+            num: 8,
+            msg: '<span>今天心情很美好</span>',
+            math: 90
+        }
+    });
+</script>
+
+</html>

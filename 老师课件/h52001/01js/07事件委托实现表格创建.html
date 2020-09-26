@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            width: 130px;
+            height: 30px;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(odd) {
+            background: #d8d8d8;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #58bc58;
+        }
+    </style>
+
+<body>
+    <h1>动态生成表格</h1>
+    姓名：<input type="text" id="text1">
+    性别：<input type="text" id="text2">
+    <!-- 性别：
+    <label><input type="radio" name="sex" value="男生">男生</label>
+    <label><input type="radio" name="sex" value="女生">女生</label> -->
+
+    QQ：<input type="text" id="text3">
+    电话：<input type="tel" id="text4">
+
+    <input type="button" id="add" value="添加">
+    <!-- <input type="reset" id="reset" value="重置"> -->
+    <table id="tb" cellspacing=0 cellspadding=0>
+        <thead id="thead">
+            <th>序号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>QQ</th>
+            <th>电话</th>
+            <th>操作</th>
+        </thead>
+        <tbody id="tbody">
+            <!-- <tr>
+                <td>${i}</td>
+                <td contenteditable="true">${name}</td>
+            </tr> -->
+            <!-- <a href="###">删除</a> -->
+        </tbody>
+    </table>
+</body>
+<script>
+    var text1 = document.querySelector('#text1');
+    var text2 = document.querySelector('#text2');
+    var text3 = document.querySelector('#text3');
+    var text4 = document.querySelector('#text4');
+    var tbody = document.querySelector('#tbody');//shift+alt+下键
+    var add = document.querySelector('#add');
+    //渲染 3行5列的表格
+    // let str = '';
+    // for (let i = 0; i < 3; i++) {
+    //     str += '<tr>';//<tr>
+    //     for (let j = 0; j < 5; j++) {
+    //         str += '<td>666</td>';
+    //     }//<tr><td>${i}</td><td>${i}</td><td>${i}</td><td>${i}</td><td>${i}</td>
+    //     str += '</tr>';
+    // }
+    let str = '';
+    add.onclick = () => {
+        // str = `<tr>
+        //         <td>1</td>
+        //         <td contenteditable="true">${text1.value}</td>
+        //         <td contenteditable="true">${text2.value}</td>
+        //         <td contenteditable="true">${text3.value}</td>
+        //         <td contenteditable="true">${text4.value}</td>
+        //         <td contenteditable="true"><a href="###">删除</a>&nbsp;&nbsp;<a href="###">复制</a></td>
+        //     </tr>`;
+        // tbody.innerHTML += str;
+
+        //存数据 {{},{}} [{},{}]-做成这样的数据
+        let data = {
+            name: text1.value,
+            gender: text2.value,
+            qq: text3.value,
+            phone: text4.value
+        }
+        setdata(data);
+    }
+
+    //存数据
+    function setdata(data) {
+        //[{},{}]-做成这样的数据
+        let mycon = window.localStorage.getItem('data');
+        if (mycon) {
+            //有数据：非空字符串为真  '' '0' 0
+            mycon = JSON.parse(mycon);
+            console.log(mycon);
+        } else {
+            //没有数据
+            mycon = [];
+        }
+        // let arr = [];
+        mycon.push(data);
+        // //把数据存到本地存储里面
+        window.localStorage.setItem('data', JSON.stringify(mycon));
+        render();
+    }
+
+    //数据渲染
+    function render() {
+        let mycon = window.localStorage.getItem('data');
+        if (mycon) {
+            mycon = JSON.parse(mycon);
+            let str = mycon.map((item, index) => {
+                return `<tr data-index="${index}">
+                <td>1</td>
+                <td contenteditable="true">${item.name}</td>
+                <td contenteditable="true">${item.gender}</td>
+                <td contenteditable="true">${item.qq}</td>
+                <td contenteditable="true">${item.phone}</td>
+                <td contenteditable="true"><a href="###" class="del">删除</a>&nbsp;&nbsp;<a class="clone" href="###">复制</a></td>
+            </tr>`;
+            }).join('');
+            tbody.innerHTML = str;
+        }
+
+    }
+
+    render();//入口
+
+    //删除功能
+    tbody.onclick = ev => {
+        console.log(ev.target.parentNode.parentNode.dataset.index);
+        let index = ev.target.parentNode.parentNode.dataset.index;//0
+        let mycon = window.localStorage.getItem('data');
+        mycon = JSON.parse(mycon);
+        // console.log(mycon);
+        mycon = mycon.filter((item, idx) => {
+            return index != idx;
+        });
+        console.log(mycon);
+        window.localStorage.setItem('data', JSON.stringify(mycon));
+        render();
+    }
+</script>
+
+</html>

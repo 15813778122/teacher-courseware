@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for的使用</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2>1、v-for遍历数组数据</h2>
+        <ul>
+            <li v-for="(item, index) in list">
+                <!-- 工号:1,姓名：马云，工资：2000元 -->
+                工号:{{ index + 1 }},姓名：{{ item.name }}，工资：{{ item.salary }}元
+            </li>
+        </ul>
+
+        <h2>2、v-for遍历数组对象</h2>
+        <ul>
+
+            <!-- <li v-for="(val, key, index) in msg">
+                
+            工号:{{ index + 1 }},键名：{{ key }}，键值：{{ val }}元
+            </li> -->
+            <li v-for="(val, key) in msg">
+                <!-- 工号:1,姓名：马云，工资：2000元 -->
+                键值：{{ key }}元
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载入口，里面写是选择器(可以是id、class、标签)；不能挂载在body和html上
+        data: {//放数据
+            list: [
+                {
+                    name: '马云',
+                    salary: 2000
+                }, {
+                    name: '刘强东',
+                    salary: 3000
+                }, {
+                    name: '小马哥',
+                    salary: 4000
+                }
+            ],
+            msg: {
+                name: '老罗',
+                salary: '5000',
+                phone: '锤子手机'
+            }
+        },
+        methods: {//放方法
+
+        },
+        computed: {//计算属性
+
+        },
+        watch: {//监听器
+
+        }
+    });
+</script>
+
+</html>

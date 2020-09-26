@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model.trim="newdata">
+        <input type="button" value="添加数据" @click="add">
+        <ul>
+            <li v-for="(item, index) in arr" :key="item.id"> <input type="checkbox"> {{ index }} - {{ item.name }}</li>
+        </ul>
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+        key的值必须是唯一且稳定的数据(不能是对象).如果没有key，vue就是用DOM虚拟算法，帮我们用最优的方案来渲染数据。
+    */
+    new Vue({
+        el: '#app',
+        data: {
+            // arr: ['李子', '西瓜'],
+            arr: [{
+                id: 1,
+                name: '李子'
+            }, {
+                id: 2,
+                name: '西瓜'
+            }],
+            newdata: ''
+        },
+        methods: {
+            add() {
+                //点击添加新内容
+                let obj = {
+                    id: this.arr[this.arr.length - 1].id + 1,
+                    name: this.newdata
+                }
+                this.arr.unshift(obj);
+            }
+        }
+    })
+</script>
+
+</html>

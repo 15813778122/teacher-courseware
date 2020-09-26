@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性的绑定和事件的绑定</title>
+</head>
+
+<body>
+    <div id="app">
+        数学成绩：<input type="text" v-model="math">
+        语文成绩：<input type="text" v-model="chinese"><br>
+        <!-- 普通methods方法在v-model里面的方法调用不能忽略() -->
+        总分(普通方法：不会缓存)：<input type="text" v-model="score1()"><br>
+        <!-- 计算属性在v-model里面的方法调用不能写() -->
+        总分(计算属性(单向)：会缓存)：<input type="text" v-model="score2"><br>
+        总分(计算属性(双向)：会缓存)：<input type="text" v-model="score3"><br>
+        总分(watch来计算) :<input type="text" v-model="total">
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    /*
+        普通方法methods、计算属性computed、监听器watch的区别
+            * methods：不会缓存、单向、如果和v-model配合使用，不能省略()
+            * computed:会缓存，双向、如果和v-model配合使用,不能写()
+            * watch:监听对象的值发生改变，才会调用
+    */
+
+    let vm = new Vue({
+        el: '#app',//挂载的入口不能是body和html标签
+        data: {
+            math: 90,
+            chinese: 100,
+            total: 0
+        },
+        methods: {//methods里面是写事件处理函数的
+            score1() {
+                console.log('methods里面普通的方法score1被调用了');
+                return this.math * 1 + this.chinese * 1;
+            }
+        },
+        computed: {//计算属性默认只有getter方法；但是如果你需要接收外部数据的时候也可以设置setter方法
+            score2() {//get方法
+                console.log('计算属性score2被调用了');
+                return this.math * 1 + this.chinese * 1;
+            },
+            score3: {
+                //获取数据
+                get: function () {
+                    console.log('计算属性score3的getter被调用了');
+                    return this.math * 1 + this.chinese * 1;
+                },
+                //设置数据：如果你设置了set方法，就可以接收外部数据了
+                set: function (newval) {
+                    console.log('计算属性score3的setter被调用了');
+                    console.log('新值是：' + newval);
+                    this.math = parseInt(newval / 2);
+                    this.chinese = parseInt(newval / 2);
+                }
+            }
+        },
+        watch: {//监听器，监听data里面的某个属性的变化，如果发生变化，就做一些处理
+            math: function (newval, oldval) {
+                console.log('数学成绩变了，watch监听器监测到了');
+                console.log(newval);
+                this.total = newval * 1 + this.chinese * 1;//把最新的数学成绩加上语文成绩
+            }
+        }
+    });
+
+    //监听语文成绩
+    vm.$watch('chinese', function (newval) {
+        console.log('语文成绩变了');
+        this.total = newval * 1 + this.math * 1;
+    });
+
+</script>
+
+</html>

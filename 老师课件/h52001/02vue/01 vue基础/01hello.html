@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一个vue</title>
+</head>
+
+<body>
+    <!-- vue的{{}} 渲染数据 -->
+    <div id="app">{{ msg }}</div>
+    <p>{{ content }}</p>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//el:挂载入口，让这个div被我们的vue所管理
+        data: { //data:设置数据的地方，对象的形式，属性名写好了，到时候在页面里面直接调用就能渲染数据
+            msg: 'hello world!',
+            content: '我们的第一个vue程序'
+        }
+    });
+</script>
+
+</html>

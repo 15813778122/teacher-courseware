@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性的绑定和事件的绑定</title>
+    <style>
+        .red {
+            color: red;
+            width: 200px;
+            height: 200px;
+            background: #58bc58;
+        }
+
+        .green {
+            background: #58bc58;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ul v-for="(item, index) in list">
+            <li>{{index + 1}}、{{ item.name }}的工资{{ item.salary }}块</li>
+        </ul>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+
+    let vm = new Vue({
+        el: '#app',//挂载的入口不能是body和html标签
+        data: {
+            list: [
+                {
+                    name: '马云',
+                    salary: 2000
+                }, {
+                    name: '刘强东',
+                    salary: 3000
+                }, {
+                    name: '小马哥',
+                    salary: 4000
+                }
+            ]
+        }
+    });
+</script>
+
+</html>

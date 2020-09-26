@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>封装获取某个范围内随机数的方法:10-50数字</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    //0-10之间的随机数
+    let num1 = parseInt(Math.random() * 11);
+
+    //1-10之间
+    let num2 = parseInt(Math.random() * 10) + 1;
+
+    //10-50之间的
+    function ranNum(min, max) {//形参
+        return parseInt(Math.random() * (max - min + 1)) + min;//max -min + min
+    }
+
+    let num3 = ranNum(10, 50);
+
+    console.log('0-10之间的随机数:' + num1);
+    console.log('1-10之间:' + num2);
+    console.log('10-50之间的:' + num3);
+
+    //双色球
+    
+</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性的绑定和事件的绑定</title>
+    <style>
+        .red {
+            color: red;
+            width: 200px;
+            height: 200px;
+            background: #58bc58;
+        }
+
+        .green {
+            background: #58bc58;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-if和v-show都是接收布尔值 -->
+        <div class="red" v-if="isshow1">盒子1</div>
+        <div class="red" v-show="isshow1">盒子2</div>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    /*
+        v-if :是否渲染该节点，如果本来就是false，是不会被渲染的
+        v-show:是否显示该节点,节点一开始就会被创建
+
+        如果要频繁的操纵该节点，用v-show性能更好
+    */
+    let vm = new Vue({
+        el: '#app',//挂载的入口不能是body和html标签
+        data: {
+            isshow1: false
+        }
+    });
+</script>
+
+</html>

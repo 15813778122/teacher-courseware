@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for的使用</title>
+    <style>
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            -webkit-appearance: none;
+            border: 1px solid #c9c9c9;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        input[type="checkbox"]:checked {
+            background: url("https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=5bc58607708b4710da22f59ea2a7a898/622762d0f703918f418843ec533d269759eec4bf.jpg") no-repeat center;
+            background-size: 100% 100%;
+        }
+
+        .con {
+            width: 200px;
+            height: 300px;
+            border: 1px solid #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1>全选：<input type="checkbox" v-model="checkall"></h1>
+        <div class="con" v-for="(item, index) in goodslist">
+            <h3>{{ item.shop_name }}：<input type="checkbox" @click="selectall(index)" v-model="item.shop_check">
+            </h3>
+            <ul>
+                <li v-for="(good, idx) in item.goods">
+                    <p><input type="checkbox" v-model="good.good_check"></p>
+                    <p>{{ good.good_name }}</p>
+                </li>
+            </ul>
+        </div>
+        <!-- <div class="con">
+            <h3>店铺2：<input type="checkbox"> </h3>
+            <ul>
+                <li>
+                    <p><input type="checkbox"></p>
+                    <p>绿茶</p>
+                </li>
+                <li>
+                    <p><input type="checkbox"></p>
+                    <p>红茶</p>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载入口，里面写是选择器(可以是id、class、标签)；不能挂载在body和html上
+        data: {//放数据
+            isok: true,
+            goodslist: [
+                {
+                    shop_name: '卫龙之家',
+                    shop_check: false,//店铺复选框
+                    goods: [//商品数据
+                        {
+                            good_name: '辣条',
+                            good_check: false
+                        }, {
+                            good_name: '螺蛳粉',
+                            good_check: false
+                        }
+                    ]
+                }, {
+                    shop_name: '茶艺香',
+                    shop_check: false,//店铺复选框
+                    goods: [//商品数据
+                        {
+                            good_name: '绿茶',
+                            good_check: false
+                        }, {
+                            good_name: '普洱',
+                            good_check: false
+                        }
+                    ]
+                }
+            ]
+        },
+        methods: {//放方法
+            selectall(index) {
+                console.log(index);
+                this.goodslist[index].goods.map(item => item.good_check = !this.goodslist[index].shop_check);
+            }
+        },
+        computed: {//计算属性
+            checkall: {
+                get() {
+                    //商品选中，控制全选
+                    return this.goodslist.every(item => item.shop_check);
+                },
+                set(val) {
+                    //点击全选，所有商品被选中
+                    // this.goodslist.forEach(shop => {
+                    //     ischecked = shop.goods.forEach(item => {
+                    //         item.good_check = val;
+                    //     });
+                    // });
+                    this.goodslist.map(ele => {
+                        ele.goods.map(ele => ele.good_check = val)
+                    });
+                }
+            }
+        },
+        watch: {//监听器
+            goodslist: {
+                deep: true,//深度监听
+                immediate: true, //最初绑定的时候 立即执行监听
+                handler(newval) {
+
+                    // console.log('变了');
+                    newval.forEach(item => {
+                        //item：商铺信息
+                        item.shop_check = item.goods.every(good => good.good_check);
+                    });
+                }
+            }
+        }
+    });
+</script>
+
+</html>

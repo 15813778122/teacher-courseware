@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-for的使用</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <p v-uppercase="msg"></p> -->
+        <input type="text" v-focus>
+    </div>
+
+    <div id="app2">
+        <p v-uppercase="msg"></p>
+        <input type="text" v-focus>
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    /*
+        需求：
+            * 我想自定义一个指令v-focus,用来实现表单的自动聚焦；autofocus有兼容问题。
+            * 把内容里面小写字母变成大写
+
+            * 借助vue的方法去注册指令，即可调用
+                * 全局注册指令:只要是vue实例都可以使用
+                * 局部注册指令：自己的实例才能调用
+    */
+    //全局指令
+    Vue.directive('focus', {
+        inserted: function (el, binding) {
+            // el:就是你的指令所在的节点对象  <input type="text" v-focus>
+            el.focus();//自动聚焦
+            // console.log(el);
+            // console.log(binding.name);//指令名
+
+        }
+    });
+
+    let vm = new Vue({
+        el: '#app',//挂载入口，里面写是选择器(可以是id、class、标签)；不能挂载在body和html上
+        data: {//放数据
+            msg: 'h52001'
+        },
+        methods: {//放方法
+
+        },
+        computed: {//计算属性
+
+        },
+        watch: {//监听器
+
+        },
+        directives: {
+            'uppercase': {//局部指令注册
+                inserted(el, binding) {
+                    console.log(el);
+                    console.log(binding);
+                    el.innerHTML = binding.value.toUpperCase();
+                }
+            }
+        }
+    });
+
+    new Vue({
+        el: '#app2'
+    })
+
+
+
+</script>
+
+</html>

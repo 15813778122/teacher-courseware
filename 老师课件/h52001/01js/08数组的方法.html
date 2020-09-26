@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08数组的方法</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    /*
+        splice()
+            * 参数一：下标 (必写)
+            * 参数二：删除的个数(必写)
+            * 参数三起：数据(插入的数据)
+    */
+    //删除下标2所对应数据
+    // let arr = [1, 2, 3, 4, 5, 6];
+    // let arr1 = arr.splice(2, 1);//splice:直接改变原数组，返回删除的数据
+    // console.log(arr);
+    // console.log(arr1);
+
+    //从下标1开始删除2个数字
+    // let arr = [1, 2, 3, 4, 5, 6];
+    // arr.splice(1, 2);
+    // console.log(arr);
+
+    //在下标1的数据前面插入666
+    // let arr = [1, 2, 3, 4, 5, 6];
+    // arr.splice(1, 0, 666);
+    // console.log(arr);
+
+    //将下标1后两个数字替换
+    let arr = [1, 2, 3, 4, 5, 6];
+    arr.splice(1, 2, 666, 999);
+    console.log(arr);
+
+    //filter
+    let arr1 = [2, 6, 8, 3, 6];
+    //把数组里面大于5的数据找出来
+
+    //方法一：
+    let newarr1 = [];
+    //遍历数组：forEach、for、while、for in
+    arr1.forEach(item => {
+        if (item > 5) {
+            newarr1.push(item);
+        }
+    });
+    console.log(newarr1);
+
+    //方法二：filter
+    let newarr2 = arr1.filter(item => {
+        return item > 5;
+    });
+    console.log(newarr2);
+
+    //方法三：不要满足条件，删除
+    // arr1.splice(index,1)
+    arr1.forEach((item, index) => {
+        if (item <= 5) {
+            //不满足条件的数据
+            arr1.splice(index, 1);
+        }
+    });
+
+    console.log(arr1);
+
+
+    //把下标为2的对应数据删除
+    let arr2 = [11, 22, 33];
+    let arr3 = arr2.filter((item, index) => {
+        return index != 2;
+    });
+    console.log(arr3);
+
+    arr2.splice(2, 1);
+    console.log(arr2);
+</script>
+
+</html>

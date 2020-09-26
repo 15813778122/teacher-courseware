@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax请求</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(item, index) in list" :key="item.id">{{ item.name }}</li>
+        </ul>
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script>
+    /*
+        * 普通的ajax是通过回调来获取数据，但是这种方式容易引起回调地狱(嵌套太多)
+        * 利用promise的写法，我们能有效的解决回调地狱。但是本质上他还是回调的写法
+        * async await 的写法不存在回调函数，把异步的代码，用同步来实现 ES7
+    */
+    //如果这里报错，下面全部不能执行
+    // try {//执行这里，如果对：17 777
+    //     let num = 9 + 8;
+    //     console.log(num);
+    // } catch{//如果上面代码有误：执行666 777
+    //     console.log(666);
+    // }
+
+    console.log(777);
+
+    new Vue({
+        el: '#app',
+        data: {
+            list: []
+        },
+        methods: {
+            async getList() {
+                try {
+                    //发送ajax。请求数据，设置到data里面
+                    let data = await axios.get('./db/namelist.json');//await必须等到数据才往下走
+                    console.log(data.data);
+                    this.list = data.data;
+                } catch (error) {//捕获异常：失败就会捕捉到异常
+                    console.log(error);
+                }
+
+            }
+        },
+        created() {
+            this.getList();
+        }
+    });
+</script>
+
+</html>

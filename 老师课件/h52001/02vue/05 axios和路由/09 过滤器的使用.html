@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单路由设置</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ tex | filteText}}</p>
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+
+<script>
+    //全局过滤器
+    // Vue.filter('filteText', val => {
+    //     if (val) {
+    //         return val.toString().toUpperCase().replace('垃圾', "***").replace('操', "***");
+    //     }
+    // })
+
+    new Vue({
+        el: '#app',
+        data: {
+            tex: '小学生经过操场扔垃圾'
+        },
+        filters: {//局部的过滤器
+            filteText: function (val) {
+                console.log(val)
+                if (val) {
+                    return val.replace('垃圾', "***").replace('操', "***");
+                }
+            }
+        }
+
+    });
+</script>
+
+</html>

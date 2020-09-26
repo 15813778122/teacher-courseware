@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>属性的绑定和事件的绑定</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 事件函数的传参 -->
+        <input type="button" value="加1" @click="add(78,$event)">
+    </div>
+</body>
+<script src="js/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',//挂载的入口不能是body和html标签
+        data: {
+            num: 77
+        },
+        methods: {//methods里面是写事件处理函数的
+            add(num, ev) {
+
+                console.log('调用了add方法');
+                console.log('数据获取:' + num);
+                console.log(ev.target);
+            }
+        }
+    });
+</script>
+
+</html>

@@ -1,0 +1,5 @@
+1、用脚手架做作业(boostrap)
+
+2、mock语法写一次
+
+3、安装vuecli脚手架、做好vue模板

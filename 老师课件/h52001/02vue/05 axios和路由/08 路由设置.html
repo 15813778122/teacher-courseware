@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单路由设置</title>
+</head>
+
+<body>
+    <div id="app">
+        <div id="head">头部</div>
+        <ul>
+            <!-- 第5步：设置页面跳转 可以用a标签，可以用 router-link -->
+            <!-- <li>
+                <a href="#/">首页</a>
+            </li>
+            <li>
+                <a href="#/goodlist">商品管理</a>
+            </li>
+            <li>
+                <a href="#/mine">个人中心</a>
+            </li> -->
+            <li>
+                <router-link to="/">首页</router-link>
+            </li>
+            <li>
+                <router-link to="/goodlist">商品管理</router-link>
+            </li>
+            <li>
+                <router-link to="/mine">个人中心</router-link>
+            </li>
+        </ul>
+        <div id="main">
+            <!-- 第6步：设置路由的渲染出口 -->
+            <router-view></router-view>
+        </div>
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<!-- 第1步：引入vue-router插件 -->
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    //第2步：准备子组件
+
+
+    let home = {
+        template: '<h1>主页</h1>'
+    }
+    let goodlist = {
+        template: '<h1>商品列表</h1>'
+    }
+    let mine = {
+        template: '<h1>我的</h1>'
+    }
+
+    //第3步：创建路由实例，并配置路由表(设置路由规则)
+    let router = new VueRouter({
+        routes: [ //配置路由规则
+            {
+                path: '/', //路径
+                component: home //子组件名
+            }, {
+                path: '/goodlist',
+                component: goodlist
+            }, {
+                path: '/mine',
+                component: mine
+            }
+        ]
+    });
+
+    new Vue({
+        el: '#app',
+        //第4步：把vuerouter实例，注入到vue实例中
+        // router : router
+        router
+    });
+</script>
+
+</html>
